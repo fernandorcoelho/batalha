@@ -4,8 +4,10 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { UsersController } from './users/controllers/users/users.controller';
-import { User } from './typeorm/entities/User.entity';
+import { User } from './typeorm/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
+import { Role } from './typeorm/entities/role.entity';
+import { UserRole } from './typeorm/entities/userRole.entity';
 
 @Module({
   imports: [
@@ -16,8 +18,11 @@ import { AuthModule } from './auth/auth.module';
       username: 'root',
       password: '',
       database: 'batalha_rap',
-      entities: [User],
       synchronize: true, // setar para false em produção
+      migrationsTableName: '_migrations',
+      entities: [User, Role, UserRole],
+      migrations: ['dist/migrations/**/*.{ts,js}'],
+      migrationsRun: true,
     }),
     UsersModule,
     AuthModule,

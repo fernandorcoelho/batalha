@@ -6,20 +6,18 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { RoleEnum } from 'src/utils/role.enum';
 import { UserRole } from './userRole.entity';
 
-@Entity({ name: 'users' })
-export class User {
-  @PrimaryGeneratedColumn({ type: 'bigint' })
+@Entity({ name: 'roles' })
+export class Role {
+  @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  email: string;
+  @Column({ type: 'enum', enum: RoleEnum, default: RoleEnum.Crowd })
+  name: RoleEnum;
 
-  @Column()
-  password: string;
-
-  @OneToMany(() => UserRole, (userRole) => userRole.user)
+  @OneToMany(() => UserRole, (userRole) => userRole.role)
   userRoles: UserRole[];
 
   @CreateDateColumn()
