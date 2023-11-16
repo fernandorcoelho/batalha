@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { UsersController } from './users/controllers/users/users.controller';
 import { User } from './typeorm/entities/User.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { User } from './typeorm/entities/User.entity';
       synchronize: true, // setar para false em produção
     }),
     UsersModule,
+    AuthModule,
   ],
   controllers: [AppController, UsersController],
   providers: [AppService],
